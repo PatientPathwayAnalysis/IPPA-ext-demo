@@ -1,0 +1,9 @@
+{
+    "Subprocess": ["Related Dz", "Evaluation", "Treatment"],
+    "Stages": {
+        "Pre": ["NTM", "CLD", "ARD", "None Pre"],
+        "Eva": ["Strong", "Slight", "None Eva"],
+        "Tre": ["2nd", "1st", "Emp", "None Tre"]
+    }, 
+    "StateN": ["NTM", "CLD", "ARD", "None Pre", 1, "Strong", "Slight", "None Eva", "2nd", "1st", "Emp", "None Tre"]
+}
