@@ -3,9 +3,7 @@ Vue.config.devtools = true;
 const title = "Methods: Individual Patient Pathway Analysis";
 
 
-const show = d3slideshow.create('#methods', title)
-    .layout('YXratio', 0.85)
-    .layout('Prop', 0.3);
+const show = d3slideshow.create('#methods', title, 'slide');
 
 let Stages, patient;
 
@@ -529,13 +527,13 @@ d3.queue()
                 if (diag === main) {
                     loc = diag.fullSize;
                     diag.currentSize = loc;
-                    diag.g.style("opacity", 1)
+                    diag.g.style("opacity", 1).style("display", "inline")
                             .attr("transform", "translate(" + loc.left + "," + loc.top + ")");
                 } else {
                     loc = diag.smallSize;
                     diag.currentSize = loc;
                     diag.g
-                        .style("opacity", 0)
+                        .style("opacity", 0).style("display", "none")
                         .attr("transform", "translate(" + loc.left + "," + loc.top + ")" + "scale(" + loc.rX + "," + loc.rY + ")");
                 }
             });
@@ -549,14 +547,14 @@ d3.queue()
                 loc = diag.smallSize;
                 diag.currentSize = loc;
                 diag.g.transition().duration(100)
-                    .style("opacity", 1)
+                    .style("opacity", 1).style("display", "inline")
                     .attr("transform", "translate(" + loc.left + "," + loc.top + ")" + "scale(" + loc.rX + "," + loc.rY + ")");
             });
             figs.Statistics.show();
         }
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'Overview')
             .text('Section', 'Input')
             .text('Context', `
 In the beginning, the data are records
@@ -568,7 +566,7 @@ In the beginning, the data are records
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'Overview')
             .text('Section', 'Expected Output')
             .text('Context', `
 The targeted outputs are care pathways.
@@ -590,7 +588,7 @@ The targeted outputs are care pathways.
         });
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From records to processes')
             .text('Section', 'Step 1-1: Leballing')
             .text('Context', `
 Find out the meaning of each record.
@@ -601,7 +599,7 @@ Find out the meaning of each record.
             });
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From records to processes')
             .text('Section', 'Step 1-2: Mapping to subfields')
             .text('Context', `
 Group records by their fields.
@@ -613,7 +611,7 @@ Group records by their fields.
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-1: Extending time-out')
             .text('Context', `
 The events happen at certain time points but the affects sustain more than those points. Time-out is a waiting time for the next revalent event. Long time-out introduces irrevalent events; short time-out causes fragmentation.
@@ -627,7 +625,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-2: Constructing sub-episodes')
             .text('Context', `
 
@@ -641,7 +639,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-3: Aligning episodes')
             .text('Context', `
 
@@ -654,7 +652,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-4: Finding cut points')
             .text('Context', `
 
@@ -666,7 +664,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-5: Removing noises')
             .text('Context', `
 
@@ -679,7 +677,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-6: Extracting an episode')
             .text('Context', `
 
@@ -694,7 +692,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-1: Identifying critical timings')
             .text('Context', `
 
@@ -709,7 +707,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-2: Labelling stages')
             .text('Context', `
 
@@ -724,7 +722,7 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'IPPA')
+            .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-3: Summarising')
             .text('Context', `
 
@@ -748,24 +746,5 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.start();
-
-        document.body.addEventListener('keydown', function (e) {
-            let keyCode = e.key;
-            if (keyCode === "ArrowDown") {
-                let page = show.App.Page;
-                let pos0 = show.App.SectionPositions[page], pos1 = show.App.SectionPositions[page+1];
-                if (pos0 && pos1) {
-                    window.scrollTo(0, pos0 * 0.9 + pos1 * 0.1);
-                }
-
-            } else if (keyCode === "ArrowUp") {
-                let page = show.App.Page;
-                let pos0 = show.App.SectionPositions[page-2], pos1 = show.App.SectionPositions[page-1];
-                if (pos0 && pos1) {
-                    window.scrollTo(0, pos0);
-                }
-
-            }
-        });
 
     });
