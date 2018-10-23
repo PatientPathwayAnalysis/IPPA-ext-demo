@@ -592,6 +592,15 @@ The targeted outputs are care pathways.
             .text('Section', 'Step 1-1: Leballing')
             .text('Context', `
 Find out the meaning of each record.
+Records can be
+- **Related diseases:** the diagnosis for diseases which have similar symptoms. This kind of diseases highlights the start of a patient pathway. For example, a tuberculosis case usually starts with a diagnosis for an acute respiratory disease. 
+- **Evaluation procedure** the history of evaluating tool usage. 
+- **Treatment** the prescriptions with drug for treating the targeted disease. 
+
+The first two can be reduced considering the information in the data while the information about treatment is the minimal for the IPPA. 
+
+Every record can have multiple meaning. 
+For example, anti-TB durg prescriton  with the amount below standard treatment can be seen as an empirical treatment. 
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Records");
@@ -614,7 +623,7 @@ Group records by their fields.
             .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-1: Extending time-out')
             .text('Context', `
-The events happen at certain time points but the affects sustain more than those points. Time-out is a waiting time for the next revalent event. Long time-out introduces irrevalent events; short time-out causes fragmentation.
+The events happen at certain time points but the affects sustain more than those points. Time-out is a waiting time for the next event in the same group. Long time-out introduces irrelevant events; short time-out causes fragmentation.
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Subfields");
@@ -628,7 +637,10 @@ The events happen at certain time points but the affects sustain more than those
             .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-2: Constructing sub-episodes')
             .text('Context', `
+Based on the **Time-out** in the previous step, this step links the events and find how the states changes. 
 
+The progresses in **Evaluation** and **Treatment** indicate increasing strength. Higher **Evaluation** have higher ability to identify the disease of target; higher **Treatment** level have stronger intensity to control the disease (usually higher uncertainty around side-effects as well).   
+To be noted that the states of **Related-disease process** are not ordered. They only highlight the top consideration of a physician.    
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Subfields");
@@ -649,7 +661,6 @@ The events happen at certain time points but the affects sustain more than those
                 fig.hide_exc();
                 fig.hide_bands();
             });
-
 
         show.appendSlide()
             .text('Chapter', 'From processes to episodes')
