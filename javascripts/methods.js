@@ -654,7 +654,7 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-3: Aligning episodes')
             .text('Context', `
-
+Before this step, we have learnt the processes of a pathway, and we are going to summarise them.   
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Episodes");
@@ -666,7 +666,7 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-4: Finding cut points')
             .text('Context', `
-
+Aligning the three processes, the blink periods without and active states will show up. These period indicate the cut points between episodes to episodes.  
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Episodes");
@@ -678,7 +678,7 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-5: Removing noises')
             .text('Context', `
-
+Then, episodes without any active **Evaluation** or **Treatment** can be removed. The rest episodes are waiting to be interpreted as patient pathways. 
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Episodes");
@@ -691,7 +691,7 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From processes to episodes')
             .text('Section', 'Step 2-6: Extracting an episode')
             .text('Context', `
-
+Now, we focused on one of the episodes. 
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Pathways");
@@ -706,7 +706,12 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-1: Identifying critical timings')
             .text('Context', `
+Considering the three processes together, we firstly identify some important timings
 
+- **Start** Initial care-seeing. The timing of first event in the episode.
+- **Evaluation**. The first event with evaluation tools. 
+- **Confirmation** or Treatment start. The disease confirmation in the IPPA is defined as the regular treatment start. The under-dose and empirical treatment are counted as an evaluation strategy. 
+- **End** The last event of this episodes. If the episode is ended with an active **Evaluation**, the event will be seen as a check if the disease is well-controlled. If last event is **Treatment**, where it is lost to follow-up or treatment completion requires further definitions.      
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Pathways");
@@ -721,7 +726,9 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-2: Labelling stages')
             .text('Context', `
+Linking all the information together, for each stage-change, the IPPA labels a stage concerning the states of the three processes, the events or stage before and after, and relative time to the critical timings. 
 
+A patient pathway is finally constructed in this stage. 
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Pathways");
@@ -736,7 +743,17 @@ To be noted that the states of **Related-disease process** are not ordered. They
             .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-3: Summarising')
             .text('Context', `
+To sum up, The IPPA construct a patient pathway by
+1. starting with he care seeking records.
+2. labelling the records by respective events.
+3. grouping the events to sub-processes of **Related disease**, **Evaluation**, and **Treatment** 
+4. linking the events by **time-out** period
+5. cutting off unnecessary events
+6. identifying the stages
 
+We can also used the information in the patient pathway construction to find the indices of interest.
+E.g. System delay is the time difference between initial care-seeking and disease confirmation. 
+    
 `)
             .event("activate", function(figs) {
                 spreadAll(figs);
