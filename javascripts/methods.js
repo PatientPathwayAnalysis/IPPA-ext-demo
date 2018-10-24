@@ -392,21 +392,42 @@ d3.queue()
                   });
                 }
 
-                const yLevel = d3.scaleBand().domain(settings.Stages4).range([0, h])
+                const yLevel = d3.scaleBand().domain(settings.Stages4).range([0, h]);
                 let ts = Array.from(new Set(pathNodes.map((d) => d.Time))).sort(function (a, b) {
                   return a - b;
                 });
                 const xTime = d3.scaleBand().domain(ts).range([w * 0.3, w * 0.6]);
 
-                pathNodes.forEach((e) => console.log(settings.Levels[e.Stage]))
+                pathNodes.forEach((e) => console.log(settings.Levels[e.Stage]));
+
+                pathNodes.forEach((e) => {
+                   if (e.Stage === "Start") {
+                       e.posY = 0;
+                   } else if (e.Stage === "End") {
+                       e.posY = 0.97 * h;
+                   } else {
+                       settings.Levels[e.Stage].N_Events += 1;
+                   }
+                });
+
+                d3.nest()
+                    .key(e => settings.Levels[e.Stage])
+                    .entries(pathNodes.filter(e => e.posY === undefined))
+                    .forEach(kv => {
+                        let y0 = yLevel(kv.key);
+                        let bw = yLevel.bandwidth();
+                        kv.values.forEach((e, i) => {
+                            e.posY = y0 + (i + 0.5) * bw;
+                        })
+                    });
+
                 force = d3.forceSimulation().nodes(pathNodes)
                   .velocityDecay(0.6)
-                  .force("link", d3.forceLink().links(pathEdges).id((d) => d.Stage).distance(120).strength(0.9))
+                  .force("link", d3.forceLink().links(pathEdges).id((d) => d.Stage).strength(0.01))
                   .force('x', d3.forceX((d) => (d.Stage==="Start")? xTime.range()[0]-50: (d.Stage==="End")? xTime.range()[1]+50: xTime(d.Time)).strength(forceStrength))
-                  .force('y', d3.forceY((d) => (d.Stage==="Start")? 0: (d.Stage==="End")? h*0.9: yLevel(settings.Levels[d.Stage])).strength(forceStrength))
-                  .force('charge', d3.forceManyBody(0.8))
-                  .force("collide", d3.forceCollide(0.2))
-                  .force("center", d3.forceCenter(w * 0.6, h / 2));
+                  .force('y', d3.forceY((d) => d.posY).strength(forceStrength))
+                  .force('charge', d3.forceManyBody(0.1))
+                  .force("collide", d3.forceCollide(1));
                 //.force("links", d3.forceLink(pathEdges).strength(0.01));
 
                 const nodes = this.g.selectAll(".node")
