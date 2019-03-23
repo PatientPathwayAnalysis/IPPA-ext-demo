@@ -590,7 +590,7 @@ In the beginning, the data are records
             .text('Chapter', 'Overview')
             .text('Section', 'Expected Output')
             .text('Context', `
-The targeted outputs are care pathways.
+The targeted outputs are patient pathways.
 `).event("activate", function(figs) {
             spreadAll(figs);
             figs.Records.spread();
@@ -609,19 +609,19 @@ The targeted outputs are care pathways.
         });
 
         show.appendSlide()
-            .text('Chapter', 'From records to processes')
+            .text('Chapter', 'From records to three dimensions')
             .text('Section', 'Step 1-1: Leballing')
             .text('Context', `
 Find out the meaning of each record.
 Records can be
-- **Related diseases:** the diagnosis for diseases which have similar symptoms. This kind of diseases highlights the start of a patient pathway. For example, a tuberculosis case usually starts with a diagnosis for an acute respiratory disease. 
-- **Evaluation procedure** the history of evaluating tool usage. 
-- **Treatment** the prescriptions with drug for treating the targeted disease. 
+- **Related illness:** the diagnosis for diseases which have similar symptoms. This kind of diseases highlights the start of a patient pathway. For example, a tuberculosis case usually starts with a diagnosis for an acute respiratory disease. 
+- **Evaluation** the history of evaluating tool prescription. 
+- **Treatment** the prescriptions with drugs for treating the targeted disease. 
 
 The first two can be reduced considering the information in the data while the information about treatment is the minimal for the IPPA. 
 
 Every record can have multiple meaning. 
-For example, anti-TB durg prescriton  with the amount below standard treatment can be seen as an empirical treatment. 
+For example, an anti-TB durg prescriton with the amount below standard treatment can be seen as an empirical treatment or treatment initialisation. 
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Records");
@@ -629,8 +629,8 @@ For example, anti-TB durg prescriton  with the amount below standard treatment c
             });
 
         show.appendSlide()
-            .text('Chapter', 'From records to processes')
-            .text('Section', 'Step 1-2: Mapping to subfields')
+            .text('Chapter', 'From records to three dimensions')
+            .text('Section', 'Step 1-2: Mapping to dimensions')
             .text('Context', `
 Group records by their fields.
 `)
@@ -641,10 +641,10 @@ Group records by their fields.
 
 
         show.appendSlide()
-            .text('Chapter', 'From processes to episodes')
+            .text('Chapter', 'From dimensions to episodes')
             .text('Section', 'Step 2-1: Extending time-out')
             .text('Context', `
-The events happen at certain time points but the affects sustain more than those points. Time-out is a waiting time for the next event in the same group. Long time-out introduces irrelevant events; short time-out causes fragmentation.
+The events happen at certain time points but the affects will sustain more than those points. Time-out is a waiting time for the next event in the same dimensions. Long time-out might introduces irrelevant events; short time-out causes fragmentation.
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Subfields");
@@ -655,13 +655,13 @@ The events happen at certain time points but the affects sustain more than those
 
 
         show.appendSlide()
-            .text('Chapter', 'From processes to episodes')
+            .text('Chapter', 'From dimensions to episodes')
             .text('Section', 'Step 2-2: Constructing sub-episodes')
             .text('Context', `
 Based on the **Time-out** in the previous step, this step links the events and find how the states changes. 
 
-The progresses in **Evaluation** and **Treatment** indicate increasing strength. Higher **Evaluation** have higher ability to identify the disease of target; higher **Treatment** level have stronger intensity to control the disease (usually higher uncertainty around side-effects as well).   
-To be noted that the states of **Related-disease process** are not ordered. They only highlight the top consideration of a physician.    
+The progresses in **Evaluation** and **Treatment** indicate increasing intensity. Higher **Evaluation** have higher capability to identify the disease of target; higher **Treatment** level are better in controlling the disease (usually higher uncertainty or more side-effects as well).   
+To be noted that the states of **Related-illness** are not ordered. They only highlight the clinician's top consideration.    
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Subfields");
@@ -672,10 +672,10 @@ To be noted that the states of **Related-disease process** are not ordered. They
 
 
         show.appendSlide()
-            .text('Chapter', 'From processes to episodes')
+            .text('Chapter', 'From dimensions to episodes')
             .text('Section', 'Step 2-3: Aligning episodes')
             .text('Context', `
-Before this step, we have learnt the processes of a pathway, and we are going to summarise them.   
+Before this step, we have learnt the dimensions of a pathway, and we are going to summarise them.   
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Episodes");
@@ -684,10 +684,10 @@ Before this step, we have learnt the processes of a pathway, and we are going to
             });
 
         show.appendSlide()
-            .text('Chapter', 'From processes to episodes')
+            .text('Chapter', 'From dimensions to episodes')
             .text('Section', 'Step 2-4: Finding cut points')
             .text('Context', `
-Aligning the three processes, the blink periods without and active states will show up. These period indicate the cut points between episodes to episodes.  
+Aligning the three dimensions, the blink periods without and active states will show up. These period indicate the cut points between episodes to episodes.  
 `)
             .event("activate", function(figs) {
                 const fig = focusOn(figs, "Episodes");
@@ -696,7 +696,7 @@ Aligning the three processes, the blink periods without and active states will s
 
 
         show.appendSlide()
-            .text('Chapter', 'From processes to episodes')
+            .text('Chapter', 'From dimensions to episodes')
             .text('Section', 'Step 2-5: Removing noises')
             .text('Context', `
 Then, episodes without any active **Evaluation** or **Treatment** can be removed. The rest episodes are waiting to be interpreted as patient pathways. 
@@ -709,7 +709,7 @@ Then, episodes without any active **Evaluation** or **Treatment** can be removed
 
 
         show.appendSlide()
-            .text('Chapter', 'From processes to episodes')
+            .text('Chapter', 'From dimensions to episodes')
             .text('Section', 'Step 2-6: Extracting an episode')
             .text('Context', `
 Now, we focused on one of the episodes. 
@@ -727,7 +727,7 @@ Now, we focused on one of the episodes.
             .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-1: Identifying critical timings')
             .text('Context', `
-Considering the three processes together, we firstly identify some important timings
+Considering the three dimensions together, we firstly identify some important timings
 
 - **Start** Initial care-seeing. The timing of first event in the episode.
 - **Evaluation**. The first event with evaluation tools. 
@@ -747,7 +747,7 @@ Considering the three processes together, we firstly identify some important tim
             .text('Chapter', 'From episodes to pathways')
             .text('Section', 'Step 3-2: Labelling stages')
             .text('Context', `
-Linking all the information together, for each stage-change, the IPPA labels a stage concerning the states of the three processes, the events or stage before and after, and relative time to the critical timings. 
+Linking all the information together, for each stage-change, the IPPA labels a stage concerning the states of the three dimensions, the events or stage before and after, and relative time to the critical timings. 
 
 A patient pathway is finally constructed in this stage. 
 `)
@@ -767,7 +767,7 @@ A patient pathway is finally constructed in this stage.
 To sum up, The IPPA construct a patient pathway by
 1. starting with he care seeking records.
 2. labelling the records by respective events.
-3. grouping the events to sub-processes of **Related disease**, **Evaluation**, and **Treatment** 
+3. grouping the events to dimensions of **Related illness**, **Evaluation**, and **Treatment** 
 4. linking the events by **time-out** period
 5. cutting off unnecessary events
 6. identifying the stages
